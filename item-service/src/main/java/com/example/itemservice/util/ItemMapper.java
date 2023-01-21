@@ -19,6 +19,7 @@ public class ItemMapper {
 
     public ItemDto fromItem(Item item) {
         return ItemDto.builder()
+                .itemId(item.getItemId())
                 .name(item.getName())
                 .description(item.getDescription())
                 .userId(item.getUserId())

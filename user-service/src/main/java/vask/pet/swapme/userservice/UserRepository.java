@@ -1,2 +1,4 @@
-package vask.pet.swapme.userservice;public interface UserRepository {
+package vask.pet.swapme.userservice;
+
+public interface UserRepository {
 }

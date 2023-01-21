@@ -1,2 +1,4 @@
-package vask.pet.swapme.userservice.service;public class UserService {
+package vask.pet.swapme.userservice.service;
+
+public class UserService {
 }
