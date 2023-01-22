@@ -1,9 +1,25 @@
 package vask.pet.swapme.userservice.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+
+@Entity
+@Data
+@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
-    
-    private Long id;
+
+    @Id
+    @Column(name = "userId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
     private String username;
     private String email;
     private String password;
