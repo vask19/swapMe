@@ -1,6 +1,7 @@
 package vask.pet.swapme.userservice.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.AccessTokenResponse;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import vask.pet.swapme.userservice.config.KeycloakProvider;
 import vask.pet.swapme.userservice.http.requests.CreateUserRequest;
 import vask.pet.swapme.userservice.http.requests.LoginRequest;
 import vask.pet.swapme.userservice.service.KeycloakAdminClientService;
+import vask.pet.swapme.userservice.service.UserService;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.BadRequestException;
@@ -21,23 +23,21 @@ import javax.ws.rs.core.Response;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
     private final KeycloakAdminClientService kcAdminClient;
 
     private final KeycloakProvider kcProvider;
+    private final UserService userService;
 
     private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
 
-    public UserController(KeycloakAdminClientService kcAdminClient, KeycloakProvider kcProvider) {
-        this.kcProvider = kcProvider;
-        this.kcAdminClient = kcAdminClient;
-    }
 
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        Response createdResponse = kcAdminClient.createKeycloakUser(user);
+        Response createdResponse = userService.saveUser(user);
         return ResponseEntity.status(createdResponse.getStatus()).build();
 
     }

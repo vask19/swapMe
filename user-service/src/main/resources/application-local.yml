@@ -2,7 +2,7 @@ spring:
   datasource:
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:5433/ostock_dev
+    url: jdbc:postgresql://localhost:5433/swapMe-db
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true

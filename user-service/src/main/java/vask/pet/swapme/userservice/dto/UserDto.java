@@ -2,16 +2,20 @@ package vask.pet.swapme.userservice.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Builder
 public class UserDto {
-
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private Long userId;
     private String username;
-    private String password;
+    private String email;
+    private String firstname;
+    private String lastname;
+    private short rank;
+    private String aboutMe;
+    private String localisation;
 }
