@@ -25,7 +25,6 @@ public class UserService {
 
 
 
-
     @Transactional
     public Response saveUser(CreateUserRequest createUserRequest){
         Response response = keycloakService.createKeycloakUser(createUserRequest);
