@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.common.value.qual.StringVal;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,8 +21,7 @@ public class User {
 
     @Id
     @Column(name = "userId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private String  userId;
     private String username;
     private String email;
     private String password;

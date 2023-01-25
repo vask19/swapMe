@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vask.pet.swapme.userservice.config.KeycloakProvider;
+import vask.pet.swapme.userservice.dto.UserDto;
 import vask.pet.swapme.userservice.http.requests.CreateUserRequest;
 import vask.pet.swapme.userservice.http.requests.LoginRequest;
+import vask.pet.swapme.userservice.model.User;
 import vask.pet.swapme.userservice.service.KeycloakAdminClientService;
 import vask.pet.swapme.userservice.service.UserService;
 
@@ -37,8 +39,8 @@ public class UserController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        Response createdResponse = userService.saveUser(user);
-        return ResponseEntity.status(createdResponse.getStatus()).build();
+        UserDto userDto = userService.saveUser(user);
+        return ResponseEntity.ok(userDto);
 
     }
 
