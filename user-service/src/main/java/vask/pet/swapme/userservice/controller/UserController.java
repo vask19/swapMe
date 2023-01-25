@@ -2,6 +2,7 @@ package vask.pet.swapme.userservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.nullness.Opt;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.AccessTokenResponse;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vask.pet.swapme.userservice.config.KeycloakProvider;
 import vask.pet.swapme.userservice.dto.UserDto;
+import vask.pet.swapme.userservice.exeption.KeycloakBasicException;
 import vask.pet.swapme.userservice.http.requests.CreateUserRequest;
 import vask.pet.swapme.userservice.http.requests.LoginRequest;
 import vask.pet.swapme.userservice.model.User;
@@ -22,6 +24,7 @@ import vask.pet.swapme.userservice.service.UserService;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -39,8 +42,7 @@ public class UserController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        UserDto userDto = userService.saveUser(user);
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok(userService.saveUser(user).orElseThrow(() -> new KeycloakBasicException(HttpStatus.NOT_FOUND,"keycloak exception")));
 
     }
 

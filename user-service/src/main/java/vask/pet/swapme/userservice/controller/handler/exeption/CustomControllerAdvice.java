@@ -12,7 +12,6 @@ import java.io.StringWriter;
 
 @ControllerAdvice
 class CustomControllerAdvice {
-    // ...
     /**
      * handleException - Handles all the CustomErrorExceptions recieving an Exception, ErrorResponse.
      *

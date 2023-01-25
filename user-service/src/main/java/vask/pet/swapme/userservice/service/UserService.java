@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import vask.pet.swapme.userservice.UserRepository;
 
 import vask.pet.swapme.userservice.dto.UserDto;
+import vask.pet.swapme.userservice.exeption.KeycloakBasicException;
 import vask.pet.swapme.userservice.exeption.UndefinedException;
 import vask.pet.swapme.userservice.exeption.UserAlreadyExistsException;
 import vask.pet.swapme.userservice.http.requests.CreateUserRequest;
@@ -16,6 +17,7 @@ import vask.pet.swapme.userservice.util.UserMapper;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +30,17 @@ public class UserService {
 
 
 
+    /**
+     * saveUser - first step is saving user in keycloak
+     *  if user has been saved successfully in keycloak database
+     *  user will be saved in user-service's database
+     *
+     * @param createUserRequest
+     * @return UserDto
+     * @user vask19
+     * */
     @Transactional
-    public UserDto saveUser(CreateUserRequest createUserRequest) {
+    public Optional<UserDto> saveUser(CreateUserRequest createUserRequest) {
         Response response = keycloakService.createKeycloakUser(createUserRequest);
         try {
             if (response.getStatus() == 201) {
@@ -37,22 +48,18 @@ public class UserService {
                 log.info("user with username: {} was saved in keycloak",user.getUsername());
                 String userId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
                 user.setUserId(userId);
-                userRepository.save(user);
+                user = userRepository.save(user);
                 log.info("user with username: {} saved in database with id: {}", user.getUsername(), user.getUserId());
-                return userMapper.toUserDtoFromCreateUserRequest(userRepository.save(user));
+                return Optional.ofNullable(userMapper.toUserDtoFromCreateUserRequest(user));
             } else if (response.getStatus() == 409) {
                 throw new UserAlreadyExistsException(HttpStatus.CONFLICT, (String.format("user with username: %s already exists", createUserRequest.getUsername())));
             }
         } catch (Exception e) {
             throw new UndefinedException(HttpStatus.resolve(response.getStatus()),e.getMessage());
-
         }
-        return new UserDto();
-
+        throw new KeycloakBasicException(HttpStatus.NOT_FOUND,"keycloak exception");
 
     }
 
 }
 
-//        log.info("user with username: {} didn't accept by keycloak", createUserRequest.getUsername());
-//        throw new UserNotSaveException(String.format("user with username: {} didn't accept by keycloak",createUserRequest.getUsername()));
