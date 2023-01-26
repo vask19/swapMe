@@ -1,0 +1,18 @@
+.header{
+    height: 80px;
+    background-color: #6F1AB6;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/*location*/
+.header__location__input{
+    width: 250px;
+    height: 30px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border:none;
+     padding: 5px;
+    color: black;
+    font-size: 12px;
+}
