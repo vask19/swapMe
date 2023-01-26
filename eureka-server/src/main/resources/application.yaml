@@ -1,6 +1,8 @@
 spring:
   application:
-    name: item-service
+    name: eureka-server
+
+
 management:
   endpoint:
     mappings:
@@ -11,7 +13,5 @@ management:
         include: "*"
 
 
-
-
-
-
+server:
+  port: 8761

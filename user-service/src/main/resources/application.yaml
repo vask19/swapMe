@@ -1,6 +1,8 @@
 spring:
   application:
-    name: item-service
+    name: user-service
+
+
 management:
   endpoint:
     mappings:
@@ -9,9 +11,6 @@ management:
     web:
       exposure:
         include: "*"
-
-
-
 
 
 
