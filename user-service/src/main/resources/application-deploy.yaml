@@ -1,0 +1,10 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  config:
+    import: optional:configserver:http://config-service:8071
+
+
+
+server:
+  port: 8080

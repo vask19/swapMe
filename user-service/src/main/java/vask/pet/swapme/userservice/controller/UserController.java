@@ -1,6 +1,8 @@
 package vask.pet.swapme.userservice.controller;
 
 
+import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.nullness.Opt;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.AccessTokenResponse;
 import org.slf4j.Logger;
@@ -11,34 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vask.pet.swapme.userservice.config.KeycloakProvider;
+import vask.pet.swapme.userservice.dto.UserDto;
+import vask.pet.swapme.userservice.exeption.KeycloakBasicException;
 import vask.pet.swapme.userservice.http.requests.CreateUserRequest;
 import vask.pet.swapme.userservice.http.requests.LoginRequest;
+import vask.pet.swapme.userservice.model.User;
 import vask.pet.swapme.userservice.service.KeycloakAdminClientService;
+import vask.pet.swapme.userservice.service.UserService;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
     private final KeycloakAdminClientService kcAdminClient;
 
     private final KeycloakProvider kcProvider;
+    private final UserService userService;
 
     private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
 
-    public UserController(KeycloakAdminClientService kcAdminClient, KeycloakProvider kcProvider) {
-        this.kcProvider = kcProvider;
-        this.kcAdminClient = kcAdminClient;
-    }
 
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        Response createdResponse = kcAdminClient.createKeycloakUser(user);
-        return ResponseEntity.status(createdResponse.getStatus()).build();
+        return ResponseEntity.ok(userService.saveUser(user).orElseThrow(() -> new KeycloakBasicException(HttpStatus.NOT_FOUND,"keycloak exception")));
 
     }
 

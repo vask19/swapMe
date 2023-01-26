@@ -44,14 +44,14 @@ public class KeycloakProvider {
     }
 
 
+
     public KeycloakBuilder newKeycloakBuilderWithPasswordCredentials(String username, String password) {
         return KeycloakBuilder.builder() //
                 .realm(realm) //
                 .serverUrl(serverURL)//
-                .clientId("ostock") //
+                .clientId(clientID) //
                 .clientSecret(clientSecret) //
                 .username(username) //
-
                 .password(password);
     }
 

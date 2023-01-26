@@ -1,10 +1,11 @@
 spring:
-  datasource:
-    username: postgres
-    password: pas
-    url: jdbc:postgresql://localhost:5433/postgresDB
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  config:
+    import: optional:configserver:http://localhost:8071
+
+server:
+  port: 0
+
+
+
