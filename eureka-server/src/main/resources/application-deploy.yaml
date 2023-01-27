@@ -1,8 +1,18 @@
 spring:
-  main:
-    allow-bean-definition-overriding: true
+  application:
+    name: eureka-server
   config:
-    import: optional:configserver:http://config-service:8071
+    import: configserver:http://config-server:8071
 
 
 
+management:
+  endpoint:
+    mappings:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8761
