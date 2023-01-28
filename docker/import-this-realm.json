@@ -1,6 +1,6 @@
 {
-  "id": "datmt-test-realm",
-  "realm": "datmt-test-realm",
+  "id": "swapMe-realm",
+  "realm": "swapMe-realm",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,

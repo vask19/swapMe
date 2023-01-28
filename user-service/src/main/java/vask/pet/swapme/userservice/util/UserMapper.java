@@ -18,7 +18,7 @@ public class UserMapper {
                 .build();
     }
 
-    public UserDto toUserDtoFromCreateUserRequest(User user){
+    public UserDto toUserDtoFromUser(User user){
         return UserDto.builder()
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())

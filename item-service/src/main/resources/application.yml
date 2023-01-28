@@ -1,4 +1,17 @@
 spring:
-  profiles:
-    active:
-      local
+  application:
+    name: item-service
+management:
+  endpoint:
+    mappings:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
+
+
+

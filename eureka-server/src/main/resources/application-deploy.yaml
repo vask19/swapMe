@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: eureka-server
+  config:
+    import: configserver:http://config-server:8071
+
+
+
+management:
+  endpoint:
+    mappings:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8761
