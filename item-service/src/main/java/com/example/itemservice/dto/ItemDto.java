@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class ItemDto {
     private Long itemId;
-    private Long userId;
+    private String userId;
     private String name;
     private String description;
     private List<ItemCategory> categories;

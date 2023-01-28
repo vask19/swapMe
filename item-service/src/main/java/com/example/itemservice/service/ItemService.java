@@ -24,8 +24,8 @@ public class ItemService {
 
     public ItemDto createItem(ItemDto itemDto) {
         Item item = itemRepository.save(itemMapper.toItem(itemDto));
-        log.info("{} has saved ",item);
-        return itemDto;
+        log.info("{} has been saved ",item);
+        return itemMapper.fromItem(item);
 
     }
 
@@ -33,7 +33,7 @@ public class ItemService {
         return itemMapper.fromItem(itemRepository.findById(itemId).orElseThrow(ItemNotFoundException::new));
     }
 
-    public List<ItemDto> getAllUsersItems(Long userId) {
+    public List<ItemDto> getAllUsersItems(String userId) {
         return itemRepository.findAllByUserId(userId).stream()
                 .map(itemMapper::fromItem).collect(Collectors.toList());
 
@@ -41,15 +41,15 @@ public class ItemService {
 
     @Transactional
     public boolean deleteItem(Long itemId, Principal principal) {
-        Long userId = getUserByPrincipal(principal);
-        Item item = itemRepository.findAllByUserId(userId).orElseThrow(ItemNotFoundException::new);
+        String  userId = getUserByPrincipal(principal);
+        Item item = itemRepository.findByUserIdAndItemId(userId,itemId).orElseThrow(ItemNotFoundException::new);
         itemRepository.deleteById(itemId);
         log.info("item has benn deleted successfully");
         return true;
     }
 
-    private Long getUserByPrincipal(Principal principal) {
-        return 0L;
+    private String  getUserByPrincipal(Principal principal) {
+        return "0";
         //TODO method will be sent request to user-service
     }
 }

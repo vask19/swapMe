@@ -3,7 +3,6 @@ package vask.pet.swapme.userservice.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vask.pet.swapme.userservice.UserRepository;
 
@@ -23,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
-    private final BCryptPasswordEncoder passwordEncoder;
+    //private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final KeycloakAdminClientService keycloakService;
     private final UserMapper userMapper;
@@ -50,16 +49,17 @@ public class UserService {
                 user.setUserId(userId);
                 user = userRepository.save(user);
                 log.info("user with username: {} saved in database with id: {}", user.getUsername(), user.getUserId());
-                return Optional.ofNullable(userMapper.toUserDtoFromCreateUserRequest(user));
+                return Optional.ofNullable(userMapper.toUserDtoFromUser(user));
             } else if (response.getStatus() == 409) {
                 throw new UserAlreadyExistsException(HttpStatus.CONFLICT, (String.format("user with username: %s already exists", createUserRequest.getUsername())));
             }
         } catch (Exception e) {
-            throw new UndefinedException(HttpStatus.resolve(response.getStatus()),e.getMessage());
+            throw new UndefinedException(HttpStatus.resolve(response.getStatus()),e.getMessage(),e.getStackTrace());
         }
         throw new KeycloakBasicException(HttpStatus.NOT_FOUND,"keycloak exception");
 
     }
+
 
 }
 
