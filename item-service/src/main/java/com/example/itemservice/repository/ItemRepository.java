@@ -10,5 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item,Long> {
-    Optional<Item> findAllByUserId(Long userId);
+    Optional<Item> findAllByUserId(String  userId);
+    Optional<Item> findByUserIdAndItemId(String userId,Long itemId);
+
+    Item save(Item item);
 }

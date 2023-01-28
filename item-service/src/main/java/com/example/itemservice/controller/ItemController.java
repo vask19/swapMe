@@ -32,7 +32,7 @@ public class ItemController {
 
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ItemDto>> getAllUsersItems(@PathVariable("userId") Long userId){
+    public ResponseEntity<List<ItemDto>> getAllUsersItems(@PathVariable("userId") String  userId){
         List<ItemDto> items = itemService.getAllUsersItems(userId);
         return ResponseEntity.ok(items);
     }
