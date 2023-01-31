@@ -41,14 +41,14 @@ public class ItemService {
 
     @Transactional
     public boolean deleteItem(Long itemId, Principal principal) {
-        String  userId = getUserByPrincipal(principal);
+        String  userId = getUserByAuthToken(principal);
         Item item = itemRepository.findByUserIdAndItemId(userId,itemId).orElseThrow(ItemNotFoundException::new);
         itemRepository.deleteById(itemId);
         log.info("item has benn deleted successfully");
         return true;
     }
 
-    private String  getUserByPrincipal(Principal principal) {
+    private String  getUserByAuthToken(Principal principal) {
         return "0";
         //TODO method will be sent request to user-service
     }

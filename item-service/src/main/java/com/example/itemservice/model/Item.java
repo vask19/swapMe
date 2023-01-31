@@ -4,7 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,5 +31,14 @@ public class Item {
     private String description;
     @ElementCollection
     private List<ItemCategory> categories;
+
+
+    @CreationTimestamp
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    private Date updatedAt;
 
 }
