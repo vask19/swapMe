@@ -40,9 +40,10 @@ public class UserController {
 
 
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/registration")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        return ResponseEntity.ok(userService.saveUser(user).orElseThrow(() -> new KeycloakBasicException(HttpStatus.NOT_FOUND,"keycloak exception")));
+        return ResponseEntity.ok(userService.saveUser(user).orElseThrow(()
+                -> new KeycloakBasicException(HttpStatus.BAD_REQUEST,"keycloak exception")));
 
     }
 
