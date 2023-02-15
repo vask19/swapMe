@@ -36,7 +36,6 @@ public class UserService {
      *
      * @param createUserRequest
      * @return UserDto
-     * @user vask19
      * */
     @Transactional
     public Optional<UserDto> saveUser(CreateUserRequest createUserRequest) {

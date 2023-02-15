@@ -1,0 +1,36 @@
+#%RAML 1.0
+title: API MS
+version: v1
+baseUri:
+
+/login:
+  post:
+    description: Authenticate with the platform.
+    body:
+      application/json:
+        example:
+          username: user123
+          password: SomePassword1
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJyb2xlIjoiU3R1ZGVudCJ9.IxBkuQHrrwJrc8_IA5DPdGhBKx43iYsricXKXUQt_8o
+/register:
+  post:
+    description: Register to the platform.
+    body:
+      application/json:
+        example:
+          username: user123
+          password: password123
+          email: email@email.com
+          firstname: Bob
+          lastname: Dack
+
+    responses:
+      200:
+        description: Registering successfull.
+      400:
+        description: Bad request

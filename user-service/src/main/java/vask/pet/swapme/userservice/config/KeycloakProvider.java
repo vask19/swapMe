@@ -16,13 +16,13 @@ import org.springframework.context.annotation.Configuration;
 public class KeycloakProvider {
 
     @Value("${keycloak.auth-server-url}")
-    public String serverURL;
+    private String serverURL;
     @Value("${keycloak.realm}")
-    public String realm;
+    private String realm;
     @Value("${keycloak.resource}")
-    public String clientID;
+    private String clientID;
     @Value("${keycloak.credentials.secret}")
-    public String clientSecret;
+    private String clientSecret;
 
     private static Keycloak keycloak = null;
 

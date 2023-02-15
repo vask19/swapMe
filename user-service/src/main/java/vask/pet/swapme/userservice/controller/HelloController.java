@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Map;
 
 @RestController
 public class HelloController {
 
 	@GetMapping("/public/hello")
-	public ResponseEntity<String> helloPublic() {
-		return ResponseEntity.ok("Hello public user");
+	public ResponseEntity<Map<String,String >> helloPublic() {
+
+		return ResponseEntity.ok(Map.of("ok","Hello public user"));
 	}
 
 	@GetMapping("/member/hello")
